@@ -33,7 +33,7 @@ const singleUploader = (
   });
 
   //   Prepare Final Multer Upload Object:
-  const upload = multer.upload({
+  const upload = multer({
     storage: storage,
     limits: {
       file_Size: max_file_size,
