@@ -11,7 +11,7 @@ const avatarUpload = (req, res, next) => {
   );
 
   // Call The Multer Upload MiddleWare Function To Handle Error:
-  upload.any()((req, res, error) => {
+  upload.any()(req, res, (error) => {
     if (error) {
       res.status(500).json({
         errors: {

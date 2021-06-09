@@ -18,6 +18,7 @@ const singleUploader = (
     destination: (req, file, cb) => {
       cb(null, UPLOADS_FOLDER);
     },
+
     filename: (req, file, cb) => {
       const fileExt = path.extname(file.originalname);
       const fileName =
@@ -28,6 +29,7 @@ const singleUploader = (
           .join("-") +
         "-" +
         Date.now();
+
       cb(null, fileName + fileExt);
     },
   });
