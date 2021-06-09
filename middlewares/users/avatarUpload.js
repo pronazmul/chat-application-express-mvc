@@ -10,7 +10,7 @@ const avatarUpload = (req, res, next) => {
     "Only .jpg, jpeg or .png format allowed!"
   );
 
-  //   Call The Multer Upload MiddleWare Function To Handle Error:
+  // Call The Multer Upload MiddleWare Function To Handle Error:
   upload.any()(req, res, (error) => {
     if (error) {
       res.status(500).json({

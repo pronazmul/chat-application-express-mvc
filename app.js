@@ -24,7 +24,7 @@ mongoose
     useUnifiedTopology: true,
   })
   .then(() => console.log("Successfully Connected To Database!"))
-  .catch((error) => console.log(err));
+  .catch((error) => console.log(error));
 
 //   Request Parser
 app.use(express.json());
