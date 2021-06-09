@@ -1,4 +1,3 @@
-
 <div class="modal-wrapper" id="add-user-modal">
     <div class="modal">
       <a href="#" onclick="closeModal()" class="modal-close">+</a>
@@ -60,7 +59,6 @@
         for(let i=0; i<errorPlaceHolders.length; i++){
             errorPlaceHolders[i].style.display="none";
         }
-
         const inputErrors = document.querySelectorAll("input.error");
         if(inputErrors.length>0){
             for (let j=0; j<inputErrors.length; j++){
@@ -89,7 +87,8 @@
             // Errors
             Object.keys(result.errors).forEach((fieldName)=>{
                 // Add error calss to all inputs
-                form[fieldname].classList.add("error");
+                form[fieldName].classList.add("error");
+                
 
                 // Set all error placeholders (p tag) textContent
                 const errorPlaceHolders = document.querySelector(`.${fieldName}-error`);
