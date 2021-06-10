@@ -5,8 +5,16 @@ const bcrypt = require("bcrypt");
 const User = require("../models/People");
 
 // Get User Page page
-const getUsers = (req, res, next) => {
-  res.render("users");
+const getUsers = async (req, res, next) => {
+  try {
+    const users = await User.find();
+    console.log(users);
+    res.render("users", {
+      users: users,
+    });
+  } catch (error) {
+    next(error);
+  }
 };
 
 // Add User
