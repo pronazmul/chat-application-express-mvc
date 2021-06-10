@@ -1,14 +1,15 @@
 // External Imports:
 const bcrypt = require("bcrypt");
+const { unlink } = require("fs");
+const path = require("path");
 
 // Internal Modules:
 const User = require("../models/People");
 
-// Get User Page page
+// Get User
 const getUsers = async (req, res, next) => {
   try {
     const users = await User.find();
-    console.log(users);
     res.render("users", {
       users: users,
     });
@@ -52,5 +53,33 @@ const addUser = async (req, res, next) => {
   }
 };
 
+// Get User
+const deleteUser = async (req, res, next) => {
+  try {
+    const users = await User.findByIdAndDelete({ _id: req.params.id });
+
+    // Remove User Avatar if have:
+    if (users.avatar) {
+      unlink(
+        path.join(__dirname, `/../public/uploads/avatars/${user.avatar}`),
+        (err) => {
+          if (err) console.log(err);
+        }
+      );
+    }
+    res.status(200).json({
+      message: "User removed successfully!",
+    });
+  } catch (error) {
+    res.status(500).json({
+      errors: {
+        common: {
+          msg: "Could not delete the user!",
+        },
+      },
+    });
+  }
+};
+
 // Module Export
-module.exports = { getUsers, addUser };
+module.exports = { getUsers, addUser, deleteUser };

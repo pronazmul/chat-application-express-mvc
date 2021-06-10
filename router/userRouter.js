@@ -3,7 +3,11 @@ const express = require("express");
 const router = express.Router();
 
 // Internal Modules
-const { getUsers, addUser } = require("../controller/userController");
+const {
+  getUsers,
+  addUser,
+  deleteUser,
+} = require("../controller/userController");
 const decorateHtmlResponse = require("../middlewares/common/decorateHtmlResponse");
 const avatarUpload = require("../middlewares/users/avatarUpload");
 const {
@@ -13,6 +17,9 @@ const {
 
 // Get User Page
 router.get("/", decorateHtmlResponse("User"), getUsers);
+
+// Delete User:
+router.delete("/:id", deleteUser);
 
 // Add User With Avatar {Rest API}
 router.post(
