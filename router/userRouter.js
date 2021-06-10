@@ -8,6 +8,7 @@ const {
   addUser,
   deleteUser,
 } = require("../controller/userController");
+const { checkLogin } = require("../middlewares/common/checkLogin");
 const decorateHtmlResponse = require("../middlewares/common/decorateHtmlResponse");
 const avatarUpload = require("../middlewares/users/avatarUpload");
 const {
@@ -16,7 +17,7 @@ const {
 } = require("../middlewares/users/userValidator");
 
 // Get User Page
-router.get("/", decorateHtmlResponse("User"), getUsers);
+router.get("/", decorateHtmlResponse("User"), checkLogin, getUsers);
 
 // Delete User:
 router.delete("/:id", deleteUser);
@@ -24,6 +25,7 @@ router.delete("/:id", deleteUser);
 // Add User With Avatar {Rest API}
 router.post(
   "/",
+  checkLogin,
   avatarUpload,
   addUserValidators,
   addUserValidationHandler,
