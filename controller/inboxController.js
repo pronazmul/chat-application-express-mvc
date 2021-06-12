@@ -14,6 +14,7 @@ const getInbox = async (req, res, next) => {
       ],
     });
     res.locals.data = conversations;
+
     res.render("inbox");
   } catch (error) {
     next(error);

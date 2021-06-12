@@ -5,23 +5,47 @@
       <div id="search-container">
         <input type="text" placeholder="Search" />
       </div>
+
       <div id="conversation-list">
-        <div class="conversation active">
-          <img src="./images/user1.png" alt="Sumit" />
-          <div class="title-text">Sumit Saha</div>
-          <di class="created-date"> Apr 16 </di>
-          <div class="conversation-message">This is a message</div>
-        </div>
-        <div class="conversation">
-          <img src="./images/user2.png" alt="Sumit" />
-          <div class="title-text">Sumit Saha</div>
-          <di class="created-date"> Apr 16 </di>
-          <div class="conversation-message">This is a message</div>
-        </div>
+        <%if(data && data.length > 0){%>
+          <% data.map((conversation)=>{ %>
+            <!-- IF LOGGED IN USER IS CONVERSATION CREATOR THEN WE WILL SHOW PARTICIPANT INFO -->
+              <% if(conversation.creator.id == loggedInUser.userid){%>
+                <!-- PARTICIPANT INFO -->
+                <div class="conversation">
+                  <% if(conversation.participant.avatar){ %>
+                  <img src="./uploads/avatars/<%= conversation.participant.avatar %>" alt="Sumit" />
+                  <% }else{  %>
+                    <img src="./images/nophoto.png" alt="Sumit" />
+                  <% } %>
+                  <div class="title-text"><%= conversation.participant.name %></div>
+                  <div class="conversation-date"> <%= moment(conversation.last_updated).fromNow() %> </div>
+                </div>
+              <% }else{ %>
+                <!-- CREATOR INFO -->
+                <div class="conversation">
+                  <% if(conversation.creator.avatar){ %>
+                  <img src="./uploads/avatars/<%= conversation.creator.avatar %>" alt="Sumit" />
+                  <% }else{  %>
+                    <img src="./images/nophoto.png" alt="Sumit" />
+                  <% } %>
+                  <div class="title-text"><%= conversation.creator.name %></div>
+                  <div class="conversation-date"> <%= moment(conversation.last_updated).fromNow() %> </div>
+                </div>
+              <% } %>
+            <% }); %>
+        <% }else{ %>          
+          <!-- IF WE DON'T FIND ANY CONVERSATION WE WILL SHOW EMPTY CONVERSATION -->
+          <div class="nothing"><img src="./images/no-conversation.svg" alt="No Conversation"></div>
+        <% }  %>
       </div>
+      
+
+      <!-- Add New Conversation Button -->
       <div class="new-message-container" onclick="openModal()">
         <a href="#">+</a>
       </div>
+
       <div id="chat-title">
         <span>Nazmul Huda</span>
         <img src="./images/trash.png" alt="Delete Conversation" />
