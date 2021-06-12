@@ -28,8 +28,10 @@ const userLogin = async (req, res, next) => {
         // Prepare Logged in user object to generate token
         const userObject = {
           username: user.name,
+          userid: user._id,
           mobile: user.mobile,
           email: user.email,
+          avatar: user.avatar,
           role: "user",
         };
 

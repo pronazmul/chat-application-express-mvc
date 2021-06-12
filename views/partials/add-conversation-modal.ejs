@@ -1,0 +1,138 @@
+    <div class="modal-wrapper" id="add_conversation_modal">
+      <div class="modal">
+        <a onclick="closeModal()" class="modal-close">+</a>
+        <div class="modal-title">
+          <h2>Create New Conversation</h2>
+        </div>
+        <div class="modal-body">
+          <form id="add-conversation-form">
+            <input 
+              type="text" 
+              placeholder="Search user by name, email or mobile" 
+              name="user" 
+              id="user" 
+              autocomplete="off" 
+            />
+            <p class="error"></p>
+            <div class="search_users"></div>
+            <input type="submit" value="Submit" class="hide" />
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script>
+        const modal = document.querySelector("#add_conversation_modal");
+
+        // Typing Detector 
+        let typingTimer;
+        const doneTypingInterval = 500;
+        const input = document.querySelector("input#user");
+        const conversation_list = document.querySelector("#conversation-list");
+        let users_placeholder = document.querySelector(".search_users");
+
+        // Conversation Failure Toast:
+        const conversationFailureToast = Toastify({
+          text:"Error Creating a Conversation!",
+          duration:1000
+        })
+
+        // Modal Open 
+        const openModal = () => modal.style.display="block";
+
+        // Modal Close:
+        const closeModal= () =>{
+          modal.style.display="none";
+          // Reset input fields
+          users_placeholder.style.display="none";
+          input.value = "";
+        }
+
+        // On KeyUp, Start The CountDown: 
+        input.addEventListener("keyup",()=>{
+          // RESET
+          clearTimeout(typingTimer);
+          // users_placeholder.style.display="none";
+
+          if(input.value){
+            typingTimer = setTimeout(searchUser, doneTypingInterval)
+          }
+        })
+
+        // On keyDown Clear The CountDown:
+        input.addEventListener("keydown",()=>clearTimeout(typingTimer))
+
+        // Send Request For Searching users:
+        const searchUser = async ()=>{
+          let response = await fetch("/inbox/search",{
+            method:"POST",
+            body:JSON.stringify({
+              user:input.value
+            }),
+            headers:{
+              "Content-type":"application/json; charset=UTF-8"
+            }
+          })
+
+          // parse response:
+          let result = await response.json()
+          console.log(result)
+
+          // Show ERROR || RESPONSE
+          if(result.errors){
+            const errorplaceholder = document.querySelector("p.error");
+            errorplaceholder.textContent = result.errors.common.msg;
+            errorplaceholder.style.display = "block"
+          }else{
+            if(result.length > 0){
+              let generatedHtml = "<ul>";
+              result.forEach((user)=>{
+                const avatar = user.avatar? `./uploads/avatars/${user.avatar}` : "./images/nophoto.png";
+                generatedHtml += `<li onClick ="createConversation('${user._id}','${user.name}','${user.avatar}')">
+                    <div class ="user">
+                      <div class = "avatar">
+                        <img src="${avatar}"/>
+                      </div>
+                      <div class = "username">${user.name}</div>
+                    </div>
+                  </li>
+                  `
+              })
+              generatedHtml +="</ul>"
+              users_placeholder.innerHTML=generatedHtml
+              users_placeholder.style.display = "block"
+            }
+          }
+        }
+
+        // Create Conversation: 
+        const createConversation = async (participant_id, name, avatar) =>{
+          try {
+            const response = await fetch("/inbox/conversation",{
+              method:"POST",
+              body:JSON.stringify({
+                participant:name,
+                id:participant_id,
+                avatar: avatar != 'undefined' ? avatar : null
+              }),
+              headers:{
+              "Content-type":"application/json; charset=UTF-8"
+            }
+            });
+            const result = await response.json()
+            console.log(result)
+            if(!result.errors){
+              // Reset User List
+              users_placeholder.style.display= "none";
+              input.value=name;
+              // Reload the page after 1 second:
+              setTimeout(()=>location.reload(), 1000)
+            }else{
+              throw new Error(result.errors.common.msg)
+            }
+          } catch (error) {
+            conversationFailureToast.showToast()
+          }
+        }
+
+    </script>
