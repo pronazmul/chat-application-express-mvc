@@ -76,7 +76,6 @@
     let participant = null; //Selected Conversation Participant Object;
     let current_conversation_id; //Selected Conversation ID;
 
-
     // GET MESSAGES OF A CONVERSATION:
     const getMessages = async(conversation_id, current_conversation_name)=>{
      
@@ -89,41 +88,52 @@
       let response = await fetch(`/inbox/messages/${conversation_id}`)
       const result = await response.json();
       
-      console.log(result)
+      if(!result.errors && result.data){
+        form.style.visibility ='visible';
 
-      // if(!result.errors && result.data){
-      //   form.style.visibility ='visible';
+        const {data, user, conversation_id} = result;
+        participant = data.participant;
+        current_conversation_id = conversation_id;
 
-      //   const {data, user, conversation_id} = result;
-      //   participant = data.participant;
-      //   current_conversation_id = conversation_id;
+        if(data.messages){
+          let allMessages = '';
+          if(data.messages.length > 0){
+            data.messages.forEach((message)=>{
+              let senderAvatar = message.sender.avatar ? `./uploads/avatars/${message.sender.avatar}` : './images/nophoto.png';
+              const messageClass = message.sender.id === loggedinUserName ? 'you-message' : 'older-message';
+              const showAvatar = message.sender.id === loggedinUserId ? '': `<img src="${sender.avatar}" alt="${message.sender.name}" />`;
+                
+              // MESSAGES ATTACHMENTS:
+              let attachments = '<div class = "attachments">';
+                if(message.attachment && message.attachment.length >0){
+                  message.attachment.forEach(attachment=>{
+                    attachments += `<img src="./uploads/attachments/${attachment}" />`
+                  })
+                }
+              attachments += '</div>';
 
-      //   if(data.messages){
-      //     let allMessages = '';
-
-      //     if(data.message.length > 0){
-      //       data.messages.forEach((message)=>{
-      //         let senderAvatar = message.sender.avatar ? `./uploads/avatars/${message.sender.avatar}` : './images/nophoto.png';
-      //         const messageClass = message.sender.id === loggedinUserName ? 'you-message' : 'older-message';
-      //         const showAvatar = message.sender.id === loggedinUserId ? '': `<img src="${sender.avatar}" alt="${message.sender.name}" />`;
-
-      //         let attachments = '<div class = "attachments">';
-
-      //           if(message.attachment && message.attachment.length >0){
-      //             message.attachment.forEach(attachment=>{
-      //               attachments += `<img src="./uploads/attachments/${attachment}" />`
-      //             })
-      //           }else{}
-
-      //         attachments += '</div>';
-
-      //       })
-      //     }else{}
-      //   }else{}
-      // }else{
-      //   messageFailureToast.showToast();
-      // }
-
+              //  FINAL MESSAGE SCRIPT:
+              let messageHTML = `
+                <div class="message-row ${messageClass}">
+                  <div class="message-content">
+                    ${showAvatar}
+                    <div class="message-text">${message.text}</div>
+                    ${attachments}
+                    <div class="message-time">${moment(message.date_time).fromNow()}</div>
+                  </div>
+                </div>
+              `;
+              allMessages += messageHTML;
+              messageContainer.innerHTML = allMessages;
+            })
+          }else if(data.messages.length === 0){
+            messageContainer.innerHTML='<div class="message-row"></div>';
+          }    
+          chatTitleContainer.textContent= current_conversation_name
+        }
+      }else{
+        messageFailureToast.showToast();
+      }
     }
   </script>
 </html>
