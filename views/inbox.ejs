@@ -12,25 +12,25 @@
             <!-- IF LOGGED IN USER IS CONVERSATION CREATOR THEN WE WILL SHOW PARTICIPANT INFO -->
               <% if(conversation.creator.id == loggedInUser.userid){%>
                 <!-- PARTICIPANT INFO -->
-                <div class="conversation">
+                <div class="conversation" onclick="getMessages('<%= conversation._id %>', '<%= conversation.participant.name %>')">
                   <% if(conversation.participant.avatar){ %>
                   <img src="./uploads/avatars/<%= conversation.participant.avatar %>" alt="Sumit" />
                   <% }else{  %>
                     <img src="./images/nophoto.png" alt="Sumit" />
                   <% } %>
                   <div class="title-text"><%= conversation.participant.name %></div>
-                  <div class="conversation-date"> <%= moment(conversation.last_updated).fromNow() %> </div>
+                  <div class="conversation-date"><%= conversation.last_updated %></div>
                 </div>
               <% }else{ %>
                 <!-- CREATOR INFO -->
-                <div class="conversation">
+                <div class="conversation" onclick="getMessages('<%= conversation._id %>', '<%= conversation.creator.name %>')">
                   <% if(conversation.creator.avatar){ %>
                   <img src="./uploads/avatars/<%= conversation.creator.avatar %>" alt="Sumit" />
                   <% }else{  %>
                     <img src="./images/nophoto.png" alt="Sumit" />
                   <% } %>
                   <div class="title-text"><%= conversation.creator.name %></div>
-                  <div class="conversation-date"> <%= moment(conversation.last_updated).fromNow() %> </div>
+                  <!-- <div class="conversation-date"> <%= moment(conversation.last_updated).fromNow() %> </div> -->
                 </div>
               <% } %>
             <% }); %>
@@ -39,7 +39,6 @@
           <div class="nothing"><img src="./images/no-conversation.svg" alt="No Conversation"></div>
         <% }  %>
       </div>
-      
 
       <!-- Add New Conversation Button -->
       <div class="new-message-container" onclick="openModal()">
@@ -47,29 +46,84 @@
       </div>
 
       <div id="chat-title">
-        <span>Nazmul Huda</span>
+        <span id="conversation-partner"></span>
         <img src="./images/trash.png" alt="Delete Conversation" />
       </div>
+
+      <!-- Placeholder div if no messages are in message area! -->
       <div id="chat-message-list">
-        <div class="message-row other-message">
-          <div class="message-content">
-            <img src="./images/user1.png" alt="Sumit" />
-            <div class="message-text">Ok then</div>
-            <div class="message-time">Apr 16</div>
-          </div>
-        </div>
-        <div class="message-row you-message">
-          <div class="message-content">
-            <div class="message-text">Lorem ipsum dolor sit amet</div>
-            <div class="message-time">Apr 16</div>
-          </div>
-        </div>
+        <div class="nothing">Select a conversation!</div>
       </div>
-      <div id="chat-form">
-        <img src="./images/attachment.png" alt=Add Attachment"" />
-        <input type="text" placeholder="Type a message" />
-      </div>
+
+      <!-- Send Message with attachment form -->
+      <form id="chat-form" method="POST" enctype="multipart/form-data">
+        <label for="attachment"><img src="./images/attachment.png" alt="Add Attachment" /></label>
+        <input type="file" name="attachment" id="attachment" class="hide" multiple>
+        <input type="text" name="message" placeholder="Type a message" autocomplete="off" />
+      </form>
+
     </div>
         <%- include('./partials/add-conversation-modal.ejs') %>
   </body>
+
+  <script>
+    // Select Messages related elements for DOM Munipolation:
+    const form = document.querySelector('#chat-form');
+    const messageContainer = document.querySelector("#chat-message-list");
+    const chatTitleContainer = document.querySelector("#conversation-partner");
+    const loggedinUserId = '<%= loggedInUser.userid %>';
+    const loggedinUserName = '<%= loggedInUser.username %>';
+    let participant = null; //Selected Conversation Participant Object;
+    let current_conversation_id; //Selected Conversation ID;
+
+
+    // GET MESSAGES OF A CONVERSATION:
+    const getMessages = async(conversation_id, current_conversation_name)=>{
+     
+      // MESSAGE FAILURE TOAST:
+      const messageFailureToast = Toastify({
+        text:"Error loading message!",
+        duration:1000,
+      })
+
+      let response = await fetch(`/inbox/messages/${conversation_id}`)
+      const result = await response.json();
+      
+      console.log(result)
+
+      // if(!result.errors && result.data){
+      //   form.style.visibility ='visible';
+
+      //   const {data, user, conversation_id} = result;
+      //   participant = data.participant;
+      //   current_conversation_id = conversation_id;
+
+      //   if(data.messages){
+      //     let allMessages = '';
+
+      //     if(data.message.length > 0){
+      //       data.messages.forEach((message)=>{
+      //         let senderAvatar = message.sender.avatar ? `./uploads/avatars/${message.sender.avatar}` : './images/nophoto.png';
+      //         const messageClass = message.sender.id === loggedinUserName ? 'you-message' : 'older-message';
+      //         const showAvatar = message.sender.id === loggedinUserId ? '': `<img src="${sender.avatar}" alt="${message.sender.name}" />`;
+
+      //         let attachments = '<div class = "attachments">';
+
+      //           if(message.attachment && message.attachment.length >0){
+      //             message.attachment.forEach(attachment=>{
+      //               attachments += `<img src="./uploads/attachments/${attachment}" />`
+      //             })
+      //           }else{}
+
+      //         attachments += '</div>';
+
+      //       })
+      //     }else{}
+      //   }else{}
+      // }else{
+      //   messageFailureToast.showToast();
+      // }
+
+    }
+  </script>
 </html>

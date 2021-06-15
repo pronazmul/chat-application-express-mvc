@@ -1,8 +1,11 @@
+// External Module:
+const createError = require("http-errors");
+
 // Internal Module
 const escape = require("../utilities/escape");
 const User = require("../models/People");
 const Conversation = require("../models/Conversation");
-const createError = require("http-errors");
+const Message = require("../models/Message");
 
 // Get Inbox Page page
 const getInbox = async (req, res, next) => {
@@ -12,7 +15,7 @@ const getInbox = async (req, res, next) => {
         { "creator.id": req.user.userid },
         { "participant.id": req.user.userid },
       ],
-    });
+    }).sort("-createdAt");
     res.locals.data = conversations;
 
     res.render("inbox");
@@ -87,5 +90,34 @@ const addConversation = async (req, res, next) => {
   }
 };
 
+// Get Messages:
+const getMessages = async (req, res, next) => {
+  try {
+    const messages = await Message.find({
+      conversation_id: req.params.conversation_id,
+    }).sort("-createdAt");
+
+    const { participant } = await Conversation.findById(
+      req.params.conversation_id
+    );
+    res.status(200).json({
+      data: {
+        messages: messages,
+        participant,
+      },
+      user: req.user.userid,
+      conversation_id: req.params.conversation_id,
+    });
+  } catch (error) {
+    res.status(500).json({
+      errors: {
+        common: {
+          msg: "Unknown Error Occured!",
+        },
+      },
+    });
+  }
+};
+
 // Module Export
-module.exports = { getInbox, searchUser, addConversation };
+module.exports = { getMessages, getInbox, searchUser, addConversation };

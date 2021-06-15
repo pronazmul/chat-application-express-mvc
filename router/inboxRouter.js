@@ -7,6 +7,7 @@ const {
   getInbox,
   searchUser,
   addConversation,
+  getMessages,
 } = require("../controller/inboxController");
 const { checkLogin } = require("../middlewares/common/checkLogin");
 const decorateHtmlResponse = require("../middlewares/common/decorateHtmlResponse");
@@ -19,6 +20,9 @@ router.post("/search", checkLogin, searchUser);
 
 // Add user For Conversation:
 router.post("/conversation", checkLogin, addConversation);
+
+// Get Conversation Messages:
+router.get("/messages/:conversation_id", checkLogin, getMessages);
 
 // Module Export:
 module.exports = router;
