@@ -39,11 +39,9 @@
   const loggedinUserName = '<%= loggedInUser.username %>';
   let participant = null; // selected conversation participant object
   let current_conversation_id; // selected conversation id
- 
- 
+
   // socket initialization
   const socket = io('<%= process.env.APP_URL %>');
-  
   
   // handle new/live incoming message from socket
   socket.on("new_message", data => {
@@ -81,7 +79,6 @@
       document.querySelector('#chat-message-list > .message-row:first-child').insertAdjacentHTML('beforeBegin', messageHTML);
     }
   });
-
 
   // get messages of a conversation
   async function getMessages(conversation_id, current_conversation_name){
@@ -133,8 +130,6 @@
     }
 }
  
-
-
 // message sending
   form.onsubmit = async function (event) {
     event.preventDefault();
@@ -148,6 +143,7 @@
     formData.append('receiverName', participant.name);
     formData.append('avatar', participant.avatar || '');
     formData.append('conversationId', current_conversation_id);
+
     // send the request to server
     let response = await fetch("/inbox/message", {
       method: "POST",
@@ -162,8 +158,6 @@
     }
   }
   
-
-
 </script>
 </body>
 </html>

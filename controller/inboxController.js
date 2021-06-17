@@ -119,5 +119,16 @@ const getMessages = async (req, res, next) => {
   }
 };
 
-// Module Export
-module.exports = { getMessages, getInbox, searchUser, addConversation };
+// Send Message:
+const sendMessage = async (req, res, next) => {
+  res.status(200).json({ msg: "File Uploaded Successfully!" });
+};
+
+// Module Export:
+module.exports = {
+  sendMessage,
+  getMessages,
+  getInbox,
+  searchUser,
+  addConversation,
+};

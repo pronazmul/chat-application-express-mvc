@@ -1,6 +1,5 @@
 <%- include('./partials/header.ejs') %>
 
-
     <div id="chat-container">
       <div id="search-container">
         <input type="text" placeholder="Search" />
@@ -56,7 +55,7 @@
       </div>
 
       <!-- Send Message with attachment form -->
-      <form id="chat-form" method="POST" enctype="multipart/form-data">
+      <form id="chat-form" action="/inbox/message" method="post" enctype="multipart/form-data">
         <label for="attachment"><img src="./images/attachment.png" alt="Add Attachment" /></label>
         <input type="file" name="attachment" id="attachment" class="hide" multiple>
         <input type="text" name="message" placeholder="Type a message" autocomplete="off" />
@@ -76,64 +75,103 @@
     let participant = null; //Selected Conversation Participant Object;
     let current_conversation_id; //Selected Conversation ID;
 
+    // HANDLE NEW/LIVE INCOMINT MESSAGE FROM SOCKET:
+
     // GET MESSAGES OF A CONVERSATION:
-    const getMessages = async(conversation_id, current_conversation_name)=>{
-     
-      // MESSAGE FAILURE TOAST:
-      const messageFailureToast = Toastify({
-        text:"Error loading message!",
-        duration:1000,
-      })
-
-      let response = await fetch(`/inbox/messages/${conversation_id}`)
-      const result = await response.json();
+      const getMessages = async(conversation_id, current_conversation_name)=>{
       
-      if(!result.errors && result.data){
-        form.style.visibility ='visible';
+        // MESSAGE FAILURE TOAST:
+        const messageFailureToast = Toastify({
+          text:"Error loading message!",
+          duration:1000,
+        })
 
-        const {data, user, conversation_id} = result;
-        participant = data.participant;
-        current_conversation_id = conversation_id;
+        let response = await fetch(`/inbox/messages/${conversation_id}`)
+        const result = await response.json();
+        
+        if(!result.errors && result.data){
+          form.style.visibility ='visible';
 
-        if(data.messages){
-          let allMessages = '';
-          if(data.messages.length > 0){
-            data.messages.forEach((message)=>{
-              let senderAvatar = message.sender.avatar ? `./uploads/avatars/${message.sender.avatar}` : './images/nophoto.png';
-              const messageClass = message.sender.id === loggedinUserName ? 'you-message' : 'older-message';
-              const showAvatar = message.sender.id === loggedinUserId ? '': `<img src="${sender.avatar}" alt="${message.sender.name}" />`;
-                
-              // MESSAGES ATTACHMENTS:
-              let attachments = '<div class = "attachments">';
-                if(message.attachment && message.attachment.length >0){
-                  message.attachment.forEach(attachment=>{
-                    attachments += `<img src="./uploads/attachments/${attachment}" />`
-                  })
-                }
-              attachments += '</div>';
+          const {data, user, conversation_id} = result;
+          participant = data.participant;
+          current_conversation_id = conversation_id;
 
-              //  FINAL MESSAGE SCRIPT:
-              let messageHTML = `
-                <div class="message-row ${messageClass}">
-                  <div class="message-content">
-                    ${showAvatar}
-                    <div class="message-text">${message.text}</div>
-                    ${attachments}
-                    <div class="message-time">${moment(message.date_time).fromNow()}</div>
+          if(data.messages){
+            let allMessages = '';
+            if(data.messages.length > 0){
+              data.messages.forEach((message)=>{
+                let senderAvatar = message.sender.avatar ? `./uploads/avatars/${message.sender.avatar}` : './images/nophoto.png';
+                const messageClass = message.sender.id === loggedinUserName ? 'you-message' : 'older-message';
+                const showAvatar = message.sender.id === loggedinUserId ? '': `<img src="${sender.avatar}" alt="${message.sender.name}" />`;
+                  
+                // MESSAGES ATTACHMENTS:
+                let attachments = '<div class = "attachments">';
+                  if(message.attachment && message.attachment.length >0){
+                    message.attachment.forEach(attachment=>{
+                      attachments += `<img src="./uploads/attachments/${attachment}" />`
+                    })
+                  }
+                attachments += '</div>';
+
+                //  FINAL MESSAGE SCRIPT:
+                let messageHTML = `
+                  <div class="message-row ${messageClass}">
+                    <div class="message-content">
+                      ${showAvatar}
+                      <div class="message-text">${message.text}</div>
+                      ${attachments}
+                      <div class="message-time">${moment(message.date_time).fromNow()}</div>
+                    </div>
                   </div>
-                </div>
-              `;
-              allMessages += messageHTML;
-              messageContainer.innerHTML = allMessages;
-            })
-          }else if(data.messages.length === 0){
-            messageContainer.innerHTML='<div class="message-row"></div>';
-          }    
-          chatTitleContainer.textContent= current_conversation_name
+                `;
+                allMessages += messageHTML;
+                messageContainer.innerHTML = allMessages;
+              })
+            }else if(data.messages.length === 0){
+              messageContainer.innerHTML='<div class="message-row"></div>';
+            }    
+            chatTitleContainer.textContent= current_conversation_name
+          }
+        }else{
+          messageFailureToast.showToast();
         }
-      }else{
-        messageFailureToast.showToast();
       }
+
+    // MESSAGE SENDING:
+    form.onsubmit = async function(event){
+    event.preventDefault();
+    
+    // MESSAGE SENDING FAILURE TEXT:
+    const sendMessageFailureToast = Toastify({
+      text:"Error Sending Message!",
+      duration:1000,
+    })
+
+    // PREPARE FORM DATA:
+    const formData = new FormData(form);
+    formData.append('receiverId',participant.id);
+    formData.append('receiverName',participant.name);
+    formData.append('avatar',participant.avatar || "");
+    formData.append('conversationId',current_conversation_id);
+
+    // Send Request To Server:
+    const response = await fetch("/inbox/message",{
+      method:"POST",
+      body:formData
+    });
+
+    // Get Response:
+    let result = await response.json();
+    console.log(result)
+
+    // if(!result.errors){
+    //   // Reset Form:
+    //   form.reset()
+    // }else{
+    //   sendMessageFailureToast.showToast();
+    // }
+
     }
+
   </script>
 </html>
