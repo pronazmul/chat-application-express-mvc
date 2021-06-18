@@ -92,7 +92,7 @@
       let attachments = '<div class="attachments">';
       if(data.message.attachment && data.message.attachment.length > 0) {
         data.message.attachment.forEach(attachment => {
-          attachments += `<img src="./uploads/attachments/${attachment}" /> `;
+          attachments += `<img class="attachment-img" src="./uploads/attachments/${attachment}" /> `;
         });
       }
       attachments += '</div>';
@@ -138,7 +138,6 @@
               let allMessages = '';
               if(data.messages.length > 0) {
                 data.messages.forEach((message) => {
-                  console.log(message)
                   let senderAvatar = message.sender.avatar ? `./uploads/avatars/${message.sender.avatar}` : './images/nophoto.png';
                   const messageClass = message.sender.id === loggedinUserId ? 'you-message' : 'other-message';
                   const showAvatar = message.sender.id === loggedinUserId ? '' : `<img src="${senderAvatar}" alt="${message.sender.name}" />`;
@@ -146,7 +145,7 @@
                   let attachments = '<div class="attachments">';
                   if(message.attachment && message.attachment.length > 0) {
                     message.attachment.forEach(attachment => {
-                      attachments += `<img src="./uploads/attachments/${attachment}" /> `;
+                      attachments += `<img class="attachment-img" src="./uploads/attachments/${attachment}" /> `;
                     });
                   }
                   attachments += '</div>';

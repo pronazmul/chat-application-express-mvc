@@ -448,7 +448,14 @@ input[type="submit"]:active {
 }
 
 .message-content img {
-  width: 32px;
+  width: 40px;
+  height: 40px;
+}
+
+.message-content .attachment-img {
+  width: 200px;
+  height: inherit;
+  border-radius: 10% !important;
 }
 
 .you-message {
@@ -471,7 +478,7 @@ input[type="submit"]:active {
 }
 
 .message-row img:first-of-type {
-  border-radius: 100%;
+  border-radius: 50%;
   grid-row: span 2;
 }
 
