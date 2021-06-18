@@ -4,6 +4,8 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const path = require("path");
 const cookieParser = require("cookie-parser");
+const http = require("http");
+const moment = require("moment");
 
 // Internal Dependencies:
 const {
@@ -15,7 +17,15 @@ const userRouter = require("./router/userRouter");
 const inboxRouter = require("./router/inboxRouter");
 
 const app = express();
+const server = http.createServer(app);
 dotenv.config();
+
+// socket creation
+const io = require("socket.io")(server);
+global.io = io;
+
+// Moment Set as application local:
+app.locals.moment = moment;
 
 // Database Connection
 mongoose

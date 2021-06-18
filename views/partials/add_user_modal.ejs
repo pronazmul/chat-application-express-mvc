@@ -88,7 +88,6 @@
                 // Add error calss to all inputs
                 form[fieldName].classList.add("error");
                 
-
                 // Set all error placeholders (p tag) textContent
                 const errorPlaceHolders = document.querySelector(`.${fieldName}-error`);
                 errorPlaceHolders.textContent = result.errors[fieldName].msg;

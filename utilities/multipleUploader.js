@@ -20,7 +20,6 @@ const multipleUploader = (
       cb(null, UPLOADS_FOLDER);
     },
     filename: (req, file, cb) => {
-      console.log(req.files);
       const fileExt = path.extname(file.originalname);
       const fileName =
         file.originalname
