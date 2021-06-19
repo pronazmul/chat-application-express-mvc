@@ -19,12 +19,12 @@ dotenv.config();
 
 // Database Connection
 mongoose
-  .connect(process.env.DB_CONNECTION_URL, {
+  .connect(process.env.MONGO_CONNECTION_STRING, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
   .then(() => console.log("Successfully Connected To Database!"))
-  .catch((error) => console.log(err));
+  .catch((error) => console.log(error));
 
 //   Request Parser
 app.use(express.json());
