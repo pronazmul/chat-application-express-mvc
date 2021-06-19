@@ -1,4 +1,5 @@
 // External Modules:
+const createError = require("http-errors");
 const jwt = require("jsonwebtoken");
 
 const checkLogin = (req, res, next) => {
@@ -38,5 +39,24 @@ const redirectLogin = (req, res, next) => {
   }
 };
 
+const checkRole = (role) => (req, res, next) => {
+  console.log(req.user);
+  if (req.user.role && role.includes(req.user.role)) {
+    next();
+  } else {
+    if (res.locals.html) {
+      next(createError(401, "You are not Authorized to access this page!"));
+    } else {
+      res.status(401).json({
+        errors: {
+          common: {
+            msg: "You are not Authorized To access this page!",
+          },
+        },
+      });
+    }
+  }
+};
+
 // Module Export :
-module.exports = { checkLogin, redirectLogin };
+module.exports = { checkRole, checkLogin, redirectLogin };

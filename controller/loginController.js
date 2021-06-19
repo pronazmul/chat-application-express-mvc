@@ -32,7 +32,7 @@ const userLogin = async (req, res, next) => {
           mobile: user.mobile,
           email: user.email,
           avatar: user.avatar,
-          role: "user",
+          role: user.role || "user",
         };
 
         // Generate Token:
@@ -49,7 +49,7 @@ const userLogin = async (req, res, next) => {
 
         // Set Logged in user as local Identifier:
         res.locals.loggedInUser = userObject;
-        res.render("inbox");
+        res.redirect("/inbox");
       } else {
         throw createHttpError("Login Failed! Please Try Again");
       }

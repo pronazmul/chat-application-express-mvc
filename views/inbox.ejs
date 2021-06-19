@@ -83,7 +83,6 @@
 
     // HANDLE NEW/LIVE INCOMINT MESSAGE FROM SOCKET:
     socket.on('new_message', (data)=>{
-      console.log("Socket is Working!")
       if(data.message.conversation_id == current_conversation_id){
       // message class
       const messageClass = data.message.sender.id === loggedinUserId ? 'you-message' : 'other-message';
