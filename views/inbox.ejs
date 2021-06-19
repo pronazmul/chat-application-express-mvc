@@ -68,8 +68,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.1.3/socket.io.min.js"></script>
 
   <script>
-    // Socket Initialization:
-    const socket = io('<%= process.env.APP_URL %>')
 
     // Select Messages related elements for DOM Munipolation:
     const form = document.querySelector('#chat-form');
@@ -79,6 +77,9 @@
     const loggedinUserName = '<%= loggedInUser.username %>';
     let participant = null; //Selected Conversation Participant Object;
     let current_conversation_id; //Selected Conversation ID;
+   
+    // Socket Initialization:
+    const socket = io('<%= process.env.APP_URL %>')
 
     // HANDLE NEW/LIVE INCOMINT MESSAGE FROM SOCKET:
     socket.on('new_message', (data)=>{

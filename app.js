@@ -30,7 +30,7 @@ app.locals.moment = moment;
 
 // Database Connection
 mongoose
-  .connect(process.env.DB_CONNECTION_URL, {
+  .connect(process.env.MONGO_CONNECTION_STRING, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
@@ -61,6 +61,6 @@ app.use(notFoundHandler);
 // Error Handler
 app.use(errorHandler);
 
-app.listen(process.env.PORT, () => {
+server.listen(process.env.PORT, () => {
   console.log(`Application listening to port ${process.env.PORT}`);
 });
