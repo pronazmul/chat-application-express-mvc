@@ -14,7 +14,7 @@ const errorHandler = (error, req, res, next) => {
   res.status(error.status || 500);
 
   // Conditional Html || Json Resposne
-  if (!res.locals.html) {
+  if (res.locals.html) {
     res.render("errorPage", {
       title: "Error Page",
     });
