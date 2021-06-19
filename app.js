@@ -16,6 +16,7 @@ const loginRouter = require("./router/loginRouter");
 const userRouter = require("./router/userRouter");
 const inboxRouter = require("./router/inboxRouter");
 
+// Express Setup:
 const app = express();
 const server = http.createServer(app);
 dotenv.config();
@@ -24,7 +25,7 @@ dotenv.config();
 const io = require("socket.io")(server);
 global.io = io;
 
-// Moment Set as application local:
+// Moment Set as application local for ejs engine:
 app.locals.moment = moment;
 
 // Database Connection

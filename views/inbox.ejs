@@ -68,6 +68,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.1.3/socket.io.min.js"></script>
 
   <script>
+    // Socket Initialization:
+    const socket = io('<%= process.env.APP_URL %>')
+
     // Select Messages related elements for DOM Munipolation:
     const form = document.querySelector('#chat-form');
     const messageContainer = document.querySelector("#chat-message-list");
@@ -77,45 +80,42 @@
     let participant = null; //Selected Conversation Participant Object;
     let current_conversation_id; //Selected Conversation ID;
 
-    // Socket Initialization:
-    const socket = io('<%= process.env.APP_URL %>')
-
     // HANDLE NEW/LIVE INCOMINT MESSAGE FROM SOCKET:
-    // socket.on('new_message', (data)=>{
-    //   console.log("Socket is Working!")
-      // if(data.message.conversation_id == current_conversation_id){
-      // // message class
-      // const messageClass = data.message.sender.id === loggedinUserId ? 'you-message' : 'other-message';
+    socket.on('new_message', (data)=>{
+      console.log("Socket is Working!")
+      if(data.message.conversation_id == current_conversation_id){
+      // message class
+      const messageClass = data.message.sender.id === loggedinUserId ? 'you-message' : 'other-message';
       
-      // const senderAvatar = data.message.sender.avatar ? `<img src="./uploads/avatars/${data.message.sender.avatar}" alt="${data.message.sender.name}" />` : `<img src="./images/nophoto.png" alt="${data.message.sender.name}" />`;
-      // // message attachments
-      // let attachments = '<div class="attachments">';
-      // if(data.message.attachment && data.message.attachment.length > 0) {
-      //   data.message.attachment.forEach(attachment => {
-      //     attachments += `<img class="attachment-img" src="./uploads/attachments/${attachment}" /> `;
-      //   });
-      // }
-      // attachments += '</div>';
-      // let messageHTML;
-      // // do not show avatar for loggedin user
-      // if(data.message.sender.id == loggedinUserId) {
-      //     messageHTML = `<div class="message-row ${messageClass}"><div class="message-content">
-      //       <div class="message-text">${data.message.message}</div>
-      //       ${attachments}
-      //       <div class="message-time">${moment(data.message.date_time).fromNow()}</div>
-      //     </div></div>`;
-      //   } else {
-      //     messageHTML = `<div class="message-row ${messageClass}"><div class="message-content">
-      //       ${senderAvatar}
-      //       <div class="message-text">${data.message.message}</div>
-      //       ${attachments}
-      //       <div class="message-time">${moment(data.message.date_time).fromNow()}</div>
-      //     </div></div>`;
-      //   }
-      // // append the inoming message to message area as last item
-      // document.querySelector('#chat-message-list > .message-row:first-child').insertAdjacentHTML('beforeBegin', messageHTML);        
-      // }
-    // })
+      const senderAvatar = data.message.sender.avatar ? `<img src="./uploads/avatars/${data.message.sender.avatar}" alt="${data.message.sender.name}" />` : `<img src="./images/nophoto.png" alt="${data.message.sender.name}" />`;
+      // message attachments
+      let attachments = '<div class="attachments">';
+      if(data.message.attachment && data.message.attachment.length > 0) {
+        data.message.attachment.forEach(attachment => {
+          attachments += `<img class="attachment-img" src="./uploads/attachments/${attachment}" /> `;
+        });
+      }
+      attachments += '</div>';
+      let messageHTML;
+      // do not show avatar for loggedin user
+      if(data.message.sender.id == loggedinUserId) {
+          messageHTML = `<div class="message-row ${messageClass}"><div class="message-content">
+            <div class="message-text">${data.message.message}</div>
+            ${attachments}
+            <div class="message-time">${moment(data.message.date_time).fromNow()}</div>
+          </div></div>`;
+        } else {
+          messageHTML = `<div class="message-row ${messageClass}"><div class="message-content">
+            ${senderAvatar}
+            <div class="message-text">${data.message.message}</div>
+            ${attachments}
+            <div class="message-time">${moment(data.message.date_time).fromNow()}</div>
+          </div></div>`;
+        }
+      // append the inoming message to message area as last item
+      document.querySelector('#chat-message-list > .message-row:first-child').insertAdjacentHTML('beforeBegin', messageHTML);        
+      }
+    })
 
     // GET MESSAGES OF A CONVERSATION:
     const getMessages = async(conversation_id, current_conversation_name)=>{
