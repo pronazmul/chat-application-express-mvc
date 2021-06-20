@@ -51,3 +51,6 @@
     "prod":"NODE_ENV=production node app.js"
 }
 ```
+
+                          <h1 align="center">এপ্লিকেশনের কোর ফাংশনালিটি সমূহ</h1>
+
