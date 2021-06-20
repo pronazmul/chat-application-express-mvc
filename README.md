@@ -37,18 +37,13 @@
 - moment : এটি জাভাস্ক্রিপ্টের একটি ছোট্ট লাইব্রেরি এটি ব্যবহার করে মঙ্গোডেটাবেস এ থাকা হিভিজিবি দেখতে ডেট-টাইম ফরম্যাট করে দেখানোর জন্য।
 - socket.io : ব্রাউজারে সাভারের সাথে সাধারনত http/https protocole যোগাযোগ করি এই প্রোজেক্টে ws(websocket) protocole ব্যবহার করে রিয়েলটাইম চ্যটিং এর বিউটি এ এচিভ করতে পেরেছি।
 
-#### প্রোজেক্টে ব্যবহৃত Techonology সমূহ:
+#### Start Script Setup:
 
-- SSR (Server Side Rendering) Project.
-- Nodejs, Expressjs Backend.
-- Ejs Templete Engine.
-- MongoDB Database.
-
-#### Live link & Login info:
+এপ্লিকেশনকে ডেভেলপমেন্ট স্টেজে এবং প্রোডাকশন স্টেজে রান করার জন্য নিচের দুইটি স্ক্রিপ্ট ব্যবহার করা হয়েছে।
 
 ```
-user1:{
-    username: guest1@gmail.com,
-    password: Guest1@01
-  }
+"scripts":{
+    "start": "NODE_ENV=development nodemon app.js",
+    "prod":"NODE_ENV=production node app.js"
+}
 ```
