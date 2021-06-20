@@ -1,4 +1,4 @@
-<h1 align="center"> Express Real Time Chatting Application</h1>
+<h1 align="center"> Core Functionalities || Dependencies Used in this project</h1>
 
 #### Dependencies Used in this Project:
 
