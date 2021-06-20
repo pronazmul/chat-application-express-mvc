@@ -32,7 +32,7 @@
   } ,
   ```
 
-#### [Checkout Application Core Functionalities || Dependencies](https://github.com/pronazmul/chat-application-express-mvc/blob/develop/README.md#-express-real-time-chatting-application)
+#### [Checkout Application Core Functionalities || Dependencies](https://github.com/pronazmul/chat-application-express-mvc/blob/develop/README.md#-core-functionalities--dependencies-used-in-this-project)
 
 <h2>Social Networks 🌍</h2>
 
