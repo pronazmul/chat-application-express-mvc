@@ -1,6 +1,6 @@
 <h1 align="center"> Core Functionalities || Dependencies Used in this project</h1>
 
-#### Dependencies Used in this Project:
+### প্রোজেক্টে ব্যবহৃত প্যাকেজ সমূহ :
 
 ```
   "dependencies": {
@@ -19,13 +19,11 @@
   }
 ```
 
-#### প্রোজেক্টে ব্যবহৃত ফাংশনালিটি সমূহঃ
+### প্রোজেক্টে ব্যবহৃত প্যাকেজ সমূহ সম্পর্কে বিস্তারিত:
 
 - সম্পূর্ণ MVC Pattern ফলো করে SSR (Server Side Rendering) প্রজেক্ট।
-- MVC Pattern এর View পার্ট এর জন্য Ejs Templete Engine ব্যবহার করা হয়েছে।
 - MVC Pattern এর beuty টি এচিভ করতে Best Practices গুলি ফলো করে এপ্লিকেশনের Model, View, Controller, Router কে আলাদা ফোল্ডারে স্ট্রাকচারড ভাবে গুছানো হয়েছে।
-- Routing গুলিকে আলাদা ভাবে করার জন্য Root Page থেকে URL Path অনুযায়ী নিদিষ্ট Router ভাগ করে দেওয়া হয়েছে।
-
+- Ejs: MVC Pattern এর View পার্ট এর জন্য Ejs Templete Engine ব্যবহার করা হয়েছে।
 - jsonwebtoken: Application টিতে রাউটিং Authentication করার জন্য jsonwebtoken নামের একটি প্যাকেজ ব্যবহার করা হয়েছে যেটি ব্যবহার করে Successfully Loggedin ইউজারের প্রয়োজনীয় ডেটা দিয়ে একটি টোকেন তৈরী করে সেটা ব্রাউজারের cookie সেইভ করে রাখা হয়েছে যাতে কাইন্ট থেকে পাঠানো রিকুয়েষ্টে প্রতিবার এটিকে চেক করে রাউটিং Authentication ensure করা হয়েছে।
 - cookie-parser: Application টিতে রাউটিং Authentication করা হয়েছে cookie দিয়ে সেজন্য ব্রাউজারের cookie কে রিড করার জন্য cookie-parser নামের একটি প্যাকেজ ব্যবহার করা হয়েছে।
 - express-validator: Client সাইড থেকে আসা Request Data গুলি ভ্যালিডেট করার জন্য express-validator নামের একটি ফাংশন ব্যবহার করা হয়েছে। এটি ব্যবহার করে খুবই ইফিশিয়েন্ট ভাবে Request থেকে পাঠানো Data গুলি কে ভ্যালিডেট করে ডেটাবেসে সেইভ করতে পারি।
@@ -37,7 +35,20 @@
 - moment : এটি জাভাস্ক্রিপ্টের একটি ছোট্ট লাইব্রেরি এটি ব্যবহার করে মঙ্গোডেটাবেস এ থাকা হিভিজিবি দেখতে ডেট-টাইম ফরম্যাট করে দেখানোর জন্য।
 - socket.io : ব্রাউজারে সাভারের সাথে সাধারনত http/https protocole যোগাযোগ করি এই প্রোজেক্টে ws(websocket) protocole ব্যবহার করে রিয়েলটাইম চ্যটিং এর বিউটি এ এচিভ করতে পেরেছি।
 
-#### Start Script Setup:
+### বেসিক এপ্লিকেশন সেটাপ:
+
+প্রোজেক্টিতে চেষ্টা করেছি রুট ফাইল যতটা ক্লীন রাখা যায় এবং এটাই বেষ্ট প্রাকটিজ। প্রতিটা পেইজের রাউটিং কে আলাদা রাউটারে সাজিয়ে রুট ফাইলে শুধু এক্সপ্রেস এর app.use('/abc', abcRouter) ইন্সট্যান্সে সেট করে দিয়েছি।
+
+এপ্লিকেশনের জন্য প্রায়োজনীয় ডিপেন্ডেন্সিস গুলি এড করে কনফিগার করা, ডেটাবেস কানেকশন দেওয়া, ভিউ ইঞ্জিন সেটাপ করা, Socket কানেক্ট করা, moment সেটাপ করা, এরর হ্যান্ডেলিং মিডলওয়ার গুলি সেটাপ করা এবং সব শেষে এ্যাপ কে লিসেন করা ব্যাস এটুকুই।
+
+```
+"scripts":{
+    "start": "NODE_ENV=development nodemon app.js",
+    "prod":"NODE_ENV=production node app.js"
+}
+```
+
+### Start Script Setup:
 
 এপ্লিকেশনকে ডেভেলপমেন্ট স্টেজে এবং প্রোডাকশন স্টেজে রান করার জন্য নিচের দুইটি স্ক্রিপ্ট ব্যবহার করা হয়েছে।
 
