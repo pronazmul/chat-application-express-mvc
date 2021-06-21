@@ -65,3 +65,7 @@
 ### Important Scripts Can be Re-Used:
 * [Basic Project Setup](https://github.com/pronazmul/chat-application-express-mvc/commit/8868e3f48ce4bce469ffdf83711e80190e75144a#diff-02b76ad097626aa9bdb17bafa8349ba6ce878778ddc5db36097d61dcbeb9fb8a)
 * [Mongoose Schema Setup](https://github.com/pronazmul/chat-application-express-mvc/commit/8868e3f48ce4bce469ffdf83711e80190e75144a#diff-02b76ad097626aa9bdb17bafa8349ba6ce878778ddc5db36097d61dcbeb9fb8a)
+* [Multer Single File Uploder Setup](https://github.com/pronazmul/chat-application-express-mvc/commit/09b480c99820a40f15c4f5a20f1792c963137188#diff-faef343e6f12d26a7bc67fdb4af3825ecbe8d4c473d869423c409234e6e79e83)
+* [Validate User Using Express Validator, Unlink Uploaded File if Invalid user](https://github.com/pronazmul/chat-application-express-mvc/commit/59bcec20e4725f48d66afad7ac75f9f21d2dd805#diff-fca9a7b52739dbf7e631a193bcc945c463aac7807ab7b7350b5046d5d825c3a0)
+* [Add user to DB generating Hash Password](https://github.com/pronazmul/chat-application-express-mvc/commit/59bcec20e4725f48d66afad7ac75f9f21d2dd805#diff-ef084d73b5eeb973fd3133054fa4b7e6fa1eb0e6ba5f7e74c18c4e1b026959f6)
+* 
