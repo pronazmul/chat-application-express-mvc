@@ -64,8 +64,17 @@
 
 ### Important Scripts Can be Re-Used:
 * [Basic Project Setup](https://github.com/pronazmul/chat-application-express-mvc/commit/8868e3f48ce4bce469ffdf83711e80190e75144a#diff-02b76ad097626aa9bdb17bafa8349ba6ce878778ddc5db36097d61dcbeb9fb8a)
-* [Mongoose Schema Setup](https://github.com/pronazmul/chat-application-express-mvc/commit/8868e3f48ce4bce469ffdf83711e80190e75144a#diff-02b76ad097626aa9bdb17bafa8349ba6ce878778ddc5db36097d61dcbeb9fb8a)
+* [Mongoose User Schema Setup](https://github.com/pronazmul/chat-application-express-mvc/commit/8868e3f48ce4bce469ffdf83711e80190e75144a#diff-02b76ad097626aa9bdb17bafa8349ba6ce878778ddc5db36097d61dcbeb9fb8a)
+* [Mongoose Relational Schema Setup](https://github.com/pronazmul/chat-application-express-mvc/commit/3dcbed4aa9cfd51f75961cb18b512f883019c015#diff-6299142beb66cb9e35dd7198caf119f59aa241c4f2f81206660aa9bb4a762875)
 * [Multer Single File Uploder Setup](https://github.com/pronazmul/chat-application-express-mvc/commit/09b480c99820a40f15c4f5a20f1792c963137188#diff-faef343e6f12d26a7bc67fdb4af3825ecbe8d4c473d869423c409234e6e79e83)
-* [Validate User Using Express Validator, Unlink Uploaded File if Invalid user](https://github.com/pronazmul/chat-application-express-mvc/commit/59bcec20e4725f48d66afad7ac75f9f21d2dd805#diff-fca9a7b52739dbf7e631a193bcc945c463aac7807ab7b7350b5046d5d825c3a0)
+* [Validate User Using Express Validator](https://github.com/pronazmul/chat-application-express-mvc/commit/59bcec20e4725f48d66afad7ac75f9f21d2dd805#diff-fca9a7b52739dbf7e631a193bcc945c463aac7807ab7b7350b5046d5d825c3a0)
 * [Add user to DB generating Hash Password](https://github.com/pronazmul/chat-application-express-mvc/commit/59bcec20e4725f48d66afad7ac75f9f21d2dd805#diff-ef084d73b5eeb973fd3133054fa4b7e6fa1eb0e6ba5f7e74c18c4e1b026959f6)
-* 
+* [Unlink File From Storage](https://github.com/pronazmul/chat-application-express-mvc/commit/0e2b8ef205fea51ed6fd75b631c16c9d71916d2a#diff-fca9a7b52739dbf7e631a193bcc945c463aac7807ab7b7350b5046d5d825c3a0)
+* [Delete User From Mongo & Unlink File From Storage](https://github.com/pronazmul/chat-application-express-mvc/commit/692e1182f03a7718e7eebc32354bca52d79ba9a3#diff-ef084d73b5eeb973fd3133054fa4b7e6fa1eb0e6ba5f7e74c18c4e1b026959f6)
+* [Validate User Login Data, User Login, Creating jwt token, Set token in browser as signed Cookie](https://github.com/pronazmul/chat-application-express-mvc/commit/10c7414aed5cd7ddc81864779f4c8e75485ce3fd#diff-dcabf1fe18d0fa6cd619605e444cad53a758daf28a3b6dba45653ea5cd6a9281)
+* [Auth Guard Middleware, Prevent Logged in user from login page Redirect to another page, Logout by Clear Cookie](https://github.com/pronazmul/chat-application-express-mvc/commit/e84685552fa461933aaea80413b2c815471bfef5#diff-2b69d0783e0a34964f0a74b1d2b56ca97bef73e7d928c2631599262960ca2c34)
+* []()
+* []()
+* []()
+* []()
+* []()
