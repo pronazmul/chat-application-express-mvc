@@ -65,7 +65,7 @@
 
 ### Important Scripts Can be Re-Used:
 
-- [Basic Project Setup](https://github.com/pronazmul/chat-application-express-mvc/commit/8868e3f48ce4bce469ffdf83711e80190e75144a#diff-02b76ad097626aa9bdb17bafa8349ba6ce878778ddc5db36097d61dcbeb9fb8a)
+- [Standard ExpressJS Project Setup](https://github.com/pronazmul/chat-application-express-mvc/commit/0f1495a7282206a86e1d9871320c947ea0054e5d?branch=0f1495a7282206a86e1d9871320c947ea0054e5d&diff=unified#diff-bc37d034bad564583790a46f19d807abfe519c5671395fd494d8cce506c42947)
 - [Mongoose User Schema Setup](https://github.com/pronazmul/chat-application-express-mvc/commit/8868e3f48ce4bce469ffdf83711e80190e75144a#diff-02b76ad097626aa9bdb17bafa8349ba6ce878778ddc5db36097d61dcbeb9fb8a)
 - [Mongoose Relational Schema Setup](https://github.com/pronazmul/chat-application-express-mvc/commit/3dcbed4aa9cfd51f75961cb18b512f883019c015#diff-6299142beb66cb9e35dd7198caf119f59aa241c4f2f81206660aa9bb4a762875)
 - [Multer Single File Uploder Setup](https://github.com/pronazmul/chat-application-express-mvc/commit/09b480c99820a40f15c4f5a20f1792c963137188#diff-faef343e6f12d26a7bc67fdb4af3825ecbe8d4c473d869423c409234e6e79e83)
