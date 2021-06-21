@@ -64,4 +64,4 @@
 
 ### Important Scripts Can be Re-Used:
 * [Basic Project Setup](https://github.com/pronazmul/chat-application-express-mvc/commit/8868e3f48ce4bce469ffdf83711e80190e75144a#diff-02b76ad097626aa9bdb17bafa8349ba6ce878778ddc5db36097d61dcbeb9fb8a)
-* 
+* [Mongoose Schema Setup](https://github.com/pronazmul/chat-application-express-mvc/commit/8868e3f48ce4bce469ffdf83711e80190e75144a#diff-02b76ad097626aa9bdb17bafa8349ba6ce878778ddc5db36097d61dcbeb9fb8a)
