@@ -22,14 +22,10 @@
 - login as User for test:
 
   ```
-  user1:{
-      username: guest1@gmail.com,
-      password: Guest1@01
-  } ,
-  user2:{
-      username: guest2@gmail.com,
-      password: Guest2@02
-  } ,
+  Admin:{
+      username: nazmul@gmail.com,
+      password: Nazmul@01
+  } 
   ```
 
 #### [Checkout Application Core Functionalities || Dependencies](https://github.com/pronazmul/chat-application-express-mvc/blob/develop/README.md#-core-functionalities--dependencies-used-in-this-project)
