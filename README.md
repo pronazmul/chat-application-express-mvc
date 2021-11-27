@@ -18,7 +18,7 @@
 
 #### Live link & Login info:
 
-- [Live Site Link](https://realtimechat.pronazmul.com)
+- [Live Site Link](http://nazmulchat.herokuapp.com/)
 - login as User for test:
 
   ```
