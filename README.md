@@ -1,14 +1,16 @@
 <h1 align="center"> Express Real Time Chatting Application</h1>
 
-#### প্রোজেক্টের ফিচার সমূহঃ
+#### Features: 
 
-- ওয়েব সকেট ব্যবহার করে এপ্লিকেশনটিতে রিয়েল টাইম চ্যাটিং ফ্লেভার দেওয়া হয়েছে।
-- এপ্লিকেশনটিতে দুইটি রোল রয়েছে user || admin শুধু admin নতুন ইউজার এড/রিমোভ করতে পারবে।
-- user শুধু লগিন করতে পারবে এবং লগিন করলেই সে তার কনভারসেশন পেইজে চলে এবং তার এড করা/ তাকে এড করা সকল কনভারসেশনে চ্যাট করতে পারবে।
-- user যাবে সে নতুন ইউজারের সাথে কনভারসেশন তৈরী করতে পারবে এর জন্য রয়েছে এডভ্যান্স সার্চ অপশন যেখানে নাম, মোবাইল-নাম্বার, ইমেইল এড্রেস দিয়ে সার্চ করলেই ইউজার খুঁজে পাবে।
-- ম্যাসেজ এর পাশাপাশি ইউজার সর্বোচ্চ ২ টি এট্যাচমেন্ট পাঠাতে পারবে। যেটি অবশ্যই ১ MB এর মাধে কোন image হতে হবে।
+- Real time chatting using web socket.io
+- User Authentication using jsonwebtoken (token Based Routing)
+- User Authorization
+- Advanced Search Filtering using (REGULAR EXPRESSION) Can find user by Name, Phone Number or Email Address.
+- Backend Data Validation using Express Validator. 
+- Multer File Upload/Validation.
+- Conversation 
 
-#### প্রোজেক্টে ব্যবহৃত Techonology সমূহ:
+#### Techonologies used in this project:
 
 - Totall Followed MVC Pattern.
 - SSR (Server Side Rendering) Project.
@@ -18,13 +20,12 @@
 
 #### Live link & Login info:
 
-- [Live Site Link](http://nazmulchat.herokuapp.com/)
 - login as User for test:
 
   ```
   Admin:{
-      username: nazmul@gmail.com,
-      password: Nazmul@01
+      username: admin@gmail.com,
+      password: Admin@01
   } 
   ```
 
