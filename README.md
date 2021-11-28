@@ -8,7 +8,7 @@
 - Advanced Search Filtering using (REGULAR EXPRESSION) Can find user by Name, Phone Number or Email Address.
 - Backend Data Validation using Express Validator. 
 - Multer File Upload/Validation.
-- Conversation 
+- Private Conversation.  
 
 #### Techonologies used in this project:
 
