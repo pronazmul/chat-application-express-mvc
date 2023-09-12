@@ -13,9 +13,9 @@
                 <!-- PARTICIPANT INFO -->
                 <div class="conversation" onclick="getMessages('<%= conversation._id %>', '<%= conversation.participant.name %>')">
                   <% if(conversation.participant.avatar){ %>
-                  <img src="./uploads/avatars/<%= conversation.participant.avatar %>" alt="Sumit" />
+                  <img src="./uploads/avatars/<%= conversation.participant.avatar %>" alt="Nazmul Huda" />
                   <% }else{  %>
-                    <img src="./images/nophoto.png" alt="Sumit" />
+                    <img src="./images/nophoto.png" alt="Nazmul Huda" />
                   <% } %>
                   <div class="title-text"><%= conversation.participant.name %></div>
                   <div class="conversation-date"><%= moment(conversation.last_updated).fromNow() %></div>
@@ -24,9 +24,9 @@
                 <!-- CREATOR INFO -->
                 <div class="conversation" onclick="getMessages('<%= conversation._id %>', '<%= conversation.creator.name %>')">
                   <% if(conversation.creator.avatar){ %>
-                  <img src="./uploads/avatars/<%= conversation.creator.avatar %>" alt="Sumit" />
+                  <img src="./uploads/avatars/<%= conversation.creator.avatar %>" alt="Nazmul Huda" />
                   <% }else{  %>
-                    <img src="./images/nophoto.png" alt="Sumit" />
+                    <img src="./images/nophoto.png" alt="Nazmul Huda" />
                   <% } %>
                   <div class="title-text"><%= conversation.creator.name %></div>
                   <div class="conversation-date"> <%= moment(conversation.last_updated).fromNow() %> </div>
@@ -46,7 +46,7 @@
 
       <div id="chat-title">
         <span id="conversation-partner"></span>
-        <img src="./images/trash.png" alt="Delete Conversation" />
+        <img id="deleteButton" src="./images/trash.png" onclick="deleteConversation()" alt="Delete Conversation" />
       </div>
 
       <!-- Placeholder div if no messages are in message area! -->
@@ -71,6 +71,7 @@
 
     // Select Messages related elements for DOM Munipolation:
     const form = document.querySelector('#chat-form');
+    const deleteButton = document.querySelector('#deleteButton');
     const messageContainer = document.querySelector("#chat-message-list");
     const chatTitleContainer = document.querySelector("#conversation-partner");
     const loggedinUserId = '<%= loggedInUser.userid %>';
@@ -130,6 +131,7 @@
         const result= await response.json();
         if(!result.errors && result.data) {
             form.style.visibility = 'visible';
+            deleteButton.style.visibility = 'visible';
             
             const {data, user, conversation_id} = result;
             participant = data.participant;
@@ -198,5 +200,24 @@
 
     }
 
+    // Delete Conversation with messages: 
+    async function deleteConversation() {
+        messageContainer.style.visibility = 'hidden';
+        form.style.visibility = 'hidden';
+        deleteButton.style.visibility = 'hidden';
+        chatTitleContainer.style.visibility='hidden';
+
+      let response = await fetch(`/inbox/messages/${current_conversation_id}`, {method:"DELETE"});
+      
+      // let result= await response.json();
+
+      // if(result.errors){
+      //   deleteToastError.showToast();
+      // }else{
+      //   deleteToast.showToast();
+      //   document.getElementById(id).remove();
+      // }
+
+    }
   </script>
 </html>

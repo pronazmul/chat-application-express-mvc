@@ -60,8 +60,6 @@
       let response = await fetch(`/users/${id}`, {method:"DELETE"});
       let result= await response.json();
       
-      console.log(result)
-
       if(result.errors){
         deleteToastError.showToast();
       }else{

@@ -1,5 +1,5 @@
 // External Modules:
-const mongoose = require("mongoose");
+const mongoose = require('mongoose')
 
 // Create Message Schema:
 const MessageSchema = mongoose.Schema(
@@ -28,10 +28,10 @@ const MessageSchema = mongoose.Schema(
   {
     timestamps: true,
   }
-);
+)
 
 // Create Message Model:
-const Message = mongoose.model("Message", MessageSchema);
+const Message = mongoose.model('Message', MessageSchema)
 
 // Export Model:
-module.exports = Message;
+module.exports = Message

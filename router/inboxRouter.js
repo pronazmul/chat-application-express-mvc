@@ -1,6 +1,6 @@
 // External Dependencies:
-const express = require("express");
-const router = express.Router();
+const express = require('express')
+const router = express.Router()
 
 // Internal Modules
 const {
@@ -9,25 +9,29 @@ const {
   addConversation,
   getMessages,
   sendMessage,
-} = require("../controller/inboxController");
-const { checkLogin } = require("../middlewares/common/checkLogin");
-const decorateHtmlResponse = require("../middlewares/common/decorateHtmlResponse");
-const attachmentUpload = require("../middlewares/inbox/attachmentUpload");
+  deleteMessage,
+} = require('../controller/inboxController')
+const { checkLogin } = require('../middlewares/common/checkLogin')
+const decorateHtmlResponse = require('../middlewares/common/decorateHtmlResponse')
+const attachmentUpload = require('../middlewares/inbox/attachmentUpload')
 
 //Inbox Page
-router.get("/", decorateHtmlResponse("Inbox"), checkLogin, getInbox);
+router.get('/', decorateHtmlResponse('Inbox'), checkLogin, getInbox)
 
 // Search For Users to add Conversation:
-router.post("/search", checkLogin, searchUser);
+router.post('/search', checkLogin, searchUser)
 
 // Add user For Conversation:
-router.post("/conversation", checkLogin, addConversation);
+router.post('/conversation', checkLogin, addConversation)
 
 // Get Conversation Messages:
-router.get("/messages/:conversation_id", checkLogin, getMessages);
+router.get('/messages/:conversation_id', checkLogin, getMessages)
 
 // Send Message:
-router.post("/message", checkLogin, attachmentUpload, sendMessage);
+router.post('/message', checkLogin, attachmentUpload, sendMessage)
+
+// Delete Messages:
+router.delete('/messages/:conversation_id', checkLogin, deleteMessage)
 
 // Module Export:
-module.exports = router;
+module.exports = router

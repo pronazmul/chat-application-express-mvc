@@ -545,6 +545,10 @@ input[type="submit"]:active {
   display: none;
 }
 
+#deleteButton {
+  visibility: hidden;
+}
+
 /* inbox related responsive styles */
 
 @media only screen and (max-width: 1000px) {

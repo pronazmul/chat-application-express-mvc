@@ -189,6 +189,24 @@ const sendMessage = async (req, res, next) => {
   }
 };
 
+// Delete Messages:
+const deleteMessage = async (req, res, next) => {
+  try {
+    const [{ attachment }] = await Message.find({
+      conversation_id: req.params.conversation_id,
+    });
+
+    // const attachments = await messages
+    //   .map((item) => item.attachment)
+    //   .filter((item) => item != null)
+    //   .flat();
+
+    console.log(attachment);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 // Module Export:
 module.exports = {
   sendMessage,
@@ -196,4 +214,5 @@ module.exports = {
   getInbox,
   searchUser,
   addConversation,
+  deleteMessage,
 };
